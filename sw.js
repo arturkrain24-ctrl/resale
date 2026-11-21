@@ -1,5 +1,5 @@
 // Кэширует приложение, чтобы оно открывалось без интернета.
-const CACHE = 'resale-v2';
+const CACHE = 'resale-v3';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-180.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
