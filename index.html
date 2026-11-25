@@ -13,22 +13,21 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap">
 <style>
 [hidden]{display:none!important}
-  /* Layout: iOS-style ledger — sticky header, dark profit hero, grouped lists, bottom tab bar */
 :root{
   --bg:#f3f4f1;--surface:#ffffff;--surface-2:#e8eae5;--ink:#141815;--muted:#6c746e;--line:#e2e5df;
-  --accent:#0d8a5c;--accent-soft:#dcf1e6;--neg:#d4443b;--neg-soft:#fbe4e2;
+  --accent:#0d8a5c;--accent-soft:#dcf1e6;--neg:#d4443b;--neg-soft:#fbe4e2;--info:#2f6fd6;--info-soft:#e1ebfb;
   --hero:#15201a;--hero-ink:#eef5f0;--hero-muted:#9fb3a7;--hero-line:rgba(255,255,255,.08);
   --badge-bg:91%;--badge-fg:30%;--shadow:0 1px 2px rgba(20,30,24,.06),0 4px 14px rgba(20,30,24,.05);
   --font:'Onest',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0b0e0c;--surface:#151a17;--surface-2:#20261f;--ink:#edf1ee;--muted:#8b958e;--line:#242b26;
-  --accent:#3fd093;--accent-soft:#13301f;--neg:#ff6a5f;--neg-soft:#3a1715;
+  --accent:#3fd093;--accent-soft:#13301f;--neg:#ff6a5f;--neg-soft:#3a1715;--info:#7aa8f5;--info-soft:#16243d;
   --hero:#18291f;--hero-ink:#eef5f0;--hero-muted:#93a99c;--hero-line:rgba(255,255,255,.07);
   --badge-bg:20%;--badge-fg:78%;--shadow:none;color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0b0e0c;--surface:#151a17;--surface-2:#20261f;--ink:#edf1ee;--muted:#8b958e;--line:#242b26;
-  --accent:#3fd093;--accent-soft:#13301f;--neg:#ff6a5f;--neg-soft:#3a1715;
+  --accent:#3fd093;--accent-soft:#13301f;--neg:#ff6a5f;--neg-soft:#3a1715;--info:#7aa8f5;--info-soft:#16243d;
   --hero:#18291f;--hero-ink:#eef5f0;--hero-muted:#93a99c;--hero-line:rgba(255,255,255,.07);
   --badge-bg:20%;--badge-fg:78%;--shadow:none;color-scheme:dark}
 *{box-sizing:border-box}
@@ -40,22 +39,22 @@ button{cursor:pointer}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
 
 header{position:sticky;top:0;z-index:5;background:var(--bg);padding:calc(env(safe-area-inset-top,0px) + 12px) max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px))}
-.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
-.eyebrow{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;max-width:640px;margin:0 auto}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 h1{font-size:30px;margin:2px 0 0;font-weight:800;letter-spacing:-.03em;line-height:1.05}
-.add{display:flex;align-items:center;gap:6px;height:40px;padding:0 16px 0 12px;border-radius:20px;border:0;background:var(--ink);color:var(--bg);font-weight:600;font-size:15px}
+.add{display:flex;align-items:center;gap:6px;height:40px;padding:0 16px 0 12px;border-radius:20px;border:0;background:var(--ink);color:var(--bg);font-weight:600;font-size:15px;white-space:nowrap}
 .add svg{width:18px;height:18px}
-.search{margin-top:12px;width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-size:16px}
+.search{display:block;margin:12px auto 0;max-width:640px;width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-size:16px}
 .search::placeholder{color:var(--muted)}
-main{padding:6px max(16px,env(safe-area-inset-right,0px)) calc(100px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));max-width:640px;margin:0 auto}
+main{padding:6px max(16px,env(safe-area-inset-right,0px)) calc(100px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));max-width:672px;margin:0 auto}
 
 .strip{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.mini{background:var(--surface);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow)}
+.mini{background:var(--surface);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);min-width:0}
 .mini .k{font-size:12px;color:var(--muted)}
-.mini .v{font-size:18px;font-weight:700;margin-top:2px;letter-spacing:-.01em}
+.mini .v{font-size:18px;font-weight:700;margin-top:2px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 .list{background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
-.item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);width:100%;background:none;border-left:0;border-right:0;border-top:0;text-align:left}
+.item{display:flex;align-items:center;gap:12px;padding:12px 14px;border:0;border-bottom:1px solid var(--line);width:100%;background:none;text-align:left}
 .item:last-child{border-bottom:0}
 .item:active{background:var(--surface-2)}
 .badge{flex:0 0 auto;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:13px;letter-spacing:-.02em;background:hsl(var(--h) 45% var(--badge-bg));color:hsl(var(--h) 50% var(--badge-fg))}
@@ -63,19 +62,20 @@ main{padding:6px max(16px,env(safe-area-inset-right,0px)) calc(100px + env(safe-
 .t{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .s{color:var(--muted);font-size:13px;margin-top:1px}
 .r{text-align:right;white-space:nowrap;font-weight:700}
-.pill{display:inline-block;font-size:12px;font-weight:700;padding:3px 8px;border-radius:999px}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap}
 .pill.pos{background:var(--accent-soft);color:var(--accent)}
 .pill.neg{background:var(--neg-soft);color:var(--neg)}
 .pill.zero{background:var(--surface-2);color:var(--muted)}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 6px;border-radius:6px;background:var(--info-soft);color:var(--info);vertical-align:1px;margin-left:4px}
 .age{font-size:12px;font-weight:600;color:var(--muted)}
 .age.old{color:var(--neg)}
 .pos{color:var(--accent)}.neg{color:var(--neg)}
-.empty{text-align:center;color:var(--muted);padding:44px 20px;background:var(--surface);border-radius:16px}
+.empty{text-align:center;color:var(--muted);padding:40px 20px;background:var(--surface);border-radius:16px}
 .empty b{display:block;color:var(--ink);font-size:17px;margin-bottom:4px}
 
-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:color-mix(in srgb,var(--surface) 88%,transparent);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-top:1px solid var(--line);padding:0 max(8px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(8px,env(safe-area-inset-left,0px));z-index:6}
-nav button{flex:1;border:0;background:none;padding:9px 0 7px;font-size:11px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px}
-nav svg{width:24px;height:24px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:color-mix(in srgb,var(--surface) 88%,transparent);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-top:1px solid var(--line);padding:0 max(4px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(4px,env(safe-area-inset-left,0px));z-index:6}
+nav button{flex:1;min-width:0;border:0;background:none;padding:9px 0 7px;font-size:10.5px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px}
+nav svg{width:23px;height:23px}
 nav button.on{color:var(--accent)}
 
 .chips{display:flex;gap:6px;overflow-x:auto;margin:4px 0 14px;padding-bottom:2px;scrollbar-width:none}
@@ -86,19 +86,26 @@ nav button.on{color:var(--accent)}
 .hero{background:var(--hero);color:var(--hero-ink);border-radius:20px;padding:18px 18px 16px;position:relative;overflow:hidden}
 .hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--hero-line) 1px,transparent 1px),linear-gradient(90deg,var(--hero-line) 1px,transparent 1px);background-size:22px 22px;mask-image:linear-gradient(120deg,transparent 35%,#000);-webkit-mask-image:linear-gradient(120deg,transparent 35%,#000);pointer-events:none}
 .hero .k{font-size:13px;color:var(--hero-muted);position:relative}
-.hero .big{font-size:38px;font-weight:800;letter-spacing:-.035em;line-height:1.1;margin:4px 0 14px;position:relative}
+.hero .big{font-size:clamp(30px,9vw,38px);font-weight:800;letter-spacing:-.035em;line-height:1.1;margin:4px 0 14px;position:relative}
 .hero .big.neg{color:#ff8a80}
-.hero .row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;position:relative;border-top:1px solid var(--hero-line);padding-top:12px}
-.hero .row div{min-width:0}
+.hero .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;position:relative;border-top:1px solid var(--hero-line);padding-top:12px}
 .hero .row span{display:block;font-size:12px;color:var(--hero-muted)}
 .hero .row b{font-size:15px;font-weight:700;white-space:nowrap}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-.card{background:var(--surface);border-radius:16px;padding:12px 14px;box-shadow:var(--shadow)}
+.hero .row b.neg{color:#ff8a80}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:10px}
+.card{background:var(--surface);border-radius:16px;padding:12px 14px;box-shadow:var(--shadow);min-width:0}
 .card .k{color:var(--muted);font-size:12px}
-.card .v{font-size:19px;font-weight:700;margin-top:2px;letter-spacing:-.01em}
+.card .v{font-size:19px;font-weight:700;margin-top:2px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .sub{font-size:12px;color:var(--muted);margin-top:2px}
 .wide{grid-column:1/-1}
 h2{font-size:19px;font-weight:800;letter-spacing:-.02em;margin:26px 2px 10px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 h2 small{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0}
+
+.split{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--surface-2);margin:10px 0 8px}
+.split i{display:block;height:100%}
+.split .c{background:var(--accent)}.split .q{background:var(--info)}
+.legend{display:flex;justify-content:space-between;gap:8px;font-size:13px}
+.legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:1px;background:var(--dot)}
 
 .bars{display:flex;align-items:flex-end;gap:5px;height:150px;padding-top:18px;position:relative}
 .bars::before{content:"";position:absolute;left:0;right:0;bottom:20px;border-top:1px solid var(--line)}
@@ -113,11 +120,10 @@ h2 small{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0}
 .models{display:flex;flex-direction:column;gap:10px}
 .model{background:var(--surface);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
 .model-head{display:flex;align-items:center;gap:12px}
-.model-head .body .t{font-size:16px}
 .share{height:6px;border-radius:3px;background:var(--surface-2);margin:12px 0 10px;overflow:hidden}
 .share i{display:block;height:100%;background:var(--accent);border-radius:3px}
 .share i.n{background:var(--neg)}
-.mstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px}
+.mstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 8px}
 .mstats span{display:block;font-size:11px;color:var(--muted)}
 .mstats b{font-size:14px;font-weight:700;white-space:nowrap}
 .mem{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
@@ -125,7 +131,9 @@ h2 small{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0}
 .mem span b{color:var(--ink);font-weight:600}
 
 .btns{display:flex;flex-direction:column;gap:8px}
-.btn{border:1px solid var(--line);border-radius:14px;padding:13px;background:var(--surface);color:var(--ink);font-weight:600;text-align:center}
+.btn{border:1px solid var(--line);border-radius:14px;padding:13px;background:var(--surface);color:var(--ink);font-weight:600;text-align:center;width:100%}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.info{color:var(--info)}
 .btn.danger{color:var(--neg)}
 .btn.danger.armed{background:var(--neg);color:#fff;border-color:var(--neg)}
 .note{color:var(--muted);font-size:13px;margin:10px 4px}
@@ -135,21 +143,32 @@ h2 small{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0}
 @keyframes up{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.sheet{animation:none}}
 .grab{width:36px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 8px}
-.sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.sheet-head h3{margin:0;font-size:17px;font-weight:700}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px}
+.sheet-head h3{margin:0;font-size:17px;font-weight:700;text-align:center}
 .link{border:0;background:none;color:var(--accent);font-size:16px;padding:6px 0}
 .link.strong{font-weight:700}
 .group{margin:0 0 16px}
-.group .lbl{font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;padding:0 4px 6px}
+.group .lbl{font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;padding:0 4px 6px}
 .fields{background:var(--surface);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
-label.f{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line)}
+label.f{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);min-height:46px}
 label.f:last-child{border-bottom:0}
 label.f span{flex:0 0 auto}
 label.f input,label.f select{flex:1;min-width:0;text-align:right;border:0;background:transparent;font-size:16px;padding:2px 0;-webkit-appearance:none;appearance:none;outline-offset:4px}
 label.f input::placeholder{color:var(--muted)}
+.seg{display:flex;gap:4px;background:var(--surface-2);border-radius:9px;padding:2px}
+.seg button{border:0;background:none;border-radius:7px;padding:5px 10px;font-size:14px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
 textarea{width:100%;border:0;background:transparent;padding:11px 14px;font-size:16px;min-height:64px;resize:vertical;display:block}
-.preview{display:flex;justify-content:space-between;align-items:center;background:var(--accent-soft);color:var(--accent);border-radius:14px;padding:12px 14px;font-weight:700;margin:-4px 0 16px}
+.gift{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.gift:last-child{border-bottom:0}
+.gift .body .s{margin:0}
+.stepper{display:flex;align-items:center;gap:2px}
+.stepper button{width:32px;height:32px;border-radius:9px;border:0;background:var(--surface-2);font-size:18px;font-weight:700;line-height:1}
+.stepper b{min-width:26px;text-align:center}
+.preview{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--accent-soft);color:var(--accent);border-radius:14px;padding:12px 14px;font-weight:700;margin:-4px 0 16px}
 .preview.neg{background:var(--neg-soft);color:var(--neg)}
+.preview small{display:block;font-weight:500;font-size:12px;opacity:.85}
+.info{background:var(--info-soft);color:var(--info);border-radius:14px;padding:11px 14px;font-size:14px;margin:0 0 16px}
 .toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:14px;font-weight:500;z-index:30;max-width:calc(100% - 32px);text-align:center}
 </style>
 </head>
@@ -157,69 +176,48 @@ textarea{width:100%;border:0;background:transparent;padding:11px 14px;font-size:
 <header>
   <div class="top">
     <div><div class="eyebrow" id="eyebrow"></div><h1 id="title">Склад</h1></div>
-    <button class="add" id="addBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Телефон</button>
+    <button class="add" id="addBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span id="addLbl">Телефон</span></button>
   </div>
-  <input class="search" id="search" type="search" placeholder="Поиск: модель, цвет, IMEI…" autocomplete="off">
+  <input class="search" id="search" type="search" placeholder="Поиск: модель, IMEI, покупатель…" autocomplete="off">
 </header>
 <main id="main"></main>
-<nav>
+<nav id="nav">
   <button data-tab="stock" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 5.5h3"/></svg>Склад</button>
   <button data-tab="sold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Продано</button>
+  <button data-tab="acc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="9" height="11" rx="2"/><path d="M7 8V5M10 8V5M13 13h3a3 3 0 0 1 3 3v4"/></svg>Аксессуары</button>
+  <button data-tab="exp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h3l7 4V6L7 10H4z"/><path d="M18 9.5a4 4 0 0 1 0 5"/></svg>Реклама</button>
   <button data-tab="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 20V11M12 20V4M19 20v-6"/></svg>Статистика</button>
 </nav>
 
 <div class="overlay" id="overlay" hidden>
-  <form class="sheet" id="form" autocomplete="off" novalidate>
-    <div class="grab"></div>
-    <div class="sheet-head">
-      <button type="button" class="link" id="cancel">Отмена</button>
-      <h3 id="formTitle">Новый телефон</h3>
-      <button type="submit" class="link strong">Готово</button>
-    </div>
-    <div class="group"><div class="lbl">Телефон</div><div class="fields">
-      <label class="f"><span>Модель</span><input id="f-model" name="model" list="models" placeholder="iPhone 15 Pro"></label>
-      <label class="f"><span>Память</span><select id="f-memory" name="memory"><option></option><option>64 ГБ</option><option>128 ГБ</option><option>256 ГБ</option><option>512 ГБ</option><option>1 ТБ</option></select></label>
-      <label class="f"><span>Цвет</span><input id="f-color" name="color" placeholder="—"></label>
-      <label class="f"><span>Состояние</span><select id="f-condition" name="condition"><option></option><option>Новый</option><option>Отличное</option><option>Хорошее</option><option>Среднее</option><option>Плохое</option></select></label>
-      <label class="f"><span>Батарея, %</span><input id="f-battery" name="battery" type="number" inputmode="numeric" placeholder="—"></label>
-      <label class="f"><span>IMEI</span><input id="f-imei" name="imei" inputmode="numeric" placeholder="—"></label>
-    </div></div>
-    <div class="group"><div class="lbl">Покупка</div><div class="fields">
-      <label class="f"><span>Дата</span><input id="f-buyDate" name="buyDate" type="date"></label>
-      <label class="f"><span>Цена, ₸</span><input id="f-buyPrice" name="buyPrice" type="number" inputmode="numeric" placeholder="0"></label>
-      <label class="f"><span>Расходы, ₸</span><input id="f-costs" name="costs" type="number" inputmode="numeric" placeholder="ремонт, доставка"></label>
-      <label class="f"><span>Где купил</span><input id="f-source" name="source" placeholder="OLX, знакомый…"></label>
-    </div></div>
-    <div class="group"><div class="lbl">Продажа</div><div class="fields">
-      <label class="f"><span>Дата</span><input id="f-sellDate" name="sellDate" type="date"></label>
-      <label class="f"><span>Цена, ₸</span><input id="f-sellPrice" name="sellPrice" type="number" inputmode="numeric" placeholder="ещё не продан"></label>
-    </div></div>
-    <div class="preview" id="preview" hidden></div>
-    <div class="group"><div class="lbl">Заметка</div><div class="fields">
-      <textarea id="f-note" name="note" placeholder="Дефекты, контакт покупателя…"></textarea>
-    </div></div>
-    <div class="btns"><button type="button" class="btn danger" id="del">Удалить запись</button></div>
-  </form>
+  <form class="sheet" id="form" autocomplete="off" novalidate></form>
 </div>
 
 <datalist id="models"></datalist>
+<datalist id="accNames"><option value="Кабель Lightning"><option value="Кабель USB-C"><option value="Блок 20W"><option value="Блок 35W"><option value="Чехол"><option value="Защитное стекло"><option value="Коробка"></datalist>
 <input type="file" id="importFile" accept=".json,application/json" hidden>
 
 <script>
-const KEY='resale.items.v1';
+{
+const K={items:'resale.items.v1',acc:'resale.acc.v1',exp:'resale.exp.v1'};
 const MODELS=['iPhone 11','iPhone 11 Pro','iPhone 11 Pro Max','iPhone SE (2020)','iPhone 12 mini','iPhone 12','iPhone 12 Pro','iPhone 12 Pro Max','iPhone 13 mini','iPhone 13','iPhone 13 Pro','iPhone 13 Pro Max','iPhone SE (2022)','iPhone 14','iPhone 14 Plus','iPhone 14 Pro','iPhone 14 Pro Max','iPhone 15','iPhone 15 Plus','iPhone 15 Pro','iPhone 15 Pro Max','iPhone 16e','iPhone 16','iPhone 16 Plus','iPhone 16 Pro','iPhone 16 Pro Max','iPhone 17','iPhone Air','iPhone 17 Pro','iPhone 17 Pro Max'];
+const PAY={cash:'Нал',kaspi:'Kaspi',trade:'Обмен'};
+const EXP_CATS=['Реклама OLX','Реклама Instagram','Реклама другая','Доставка','Прочее'];
 
-let items=load(), tab='stock', period='month', modelSort='profit', editId=null, query='', delArmed=false;
+const load=k=>{try{const d=JSON.parse(localStorage.getItem(k));return Array.isArray(d)?d:[]}catch(e){return[]}};
+let items=load(K.items), acc=load(K.acc), exps=load(K.exp);
+let tab='stock', period='month', modelSort='profit', query='', sheet=null;
 
-function load(){try{const d=JSON.parse(localStorage.getItem(KEY));return Array.isArray(d)?d:[]}catch(e){return[]}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(items))}catch(e){toast('Не удалось сохранить: '+e.message)}}
+function saveAll(){try{localStorage.setItem(K.items,JSON.stringify(items));localStorage.setItem(K.acc,JSON.stringify(acc));localStorage.setItem(K.exp,JSON.stringify(exps))}catch(e){toast('Не удалось сохранить: '+e.message)}}
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const num=v=>{const n=parseFloat(String(v??'').replace(/\s/g,'').replace(',','.'));return isNaN(n)?0:n};
 const nf=new Intl.NumberFormat('ru-RU');
 const fmt=n=>nf.format(Math.round(n||0))+' ₸';
 const short=n=>{const a=Math.abs(n),s=n<0?'−':'';if(a>=1e6)return s+(a/1e6).toFixed(1).replace('.0','')+'м';if(a>=1e3)return s+Math.round(a/1e3)+'к';return s+Math.round(a)};
 const isSold=i=>!!(i.sellDate&&String(i.sellPrice??'')!=='');
+const giftCost=i=>(i.gifts||[]).reduce((s,g)=>s+num(g.unit)*num(g.qty),0);
 const cost=i=>num(i.buyPrice)+num(i.costs);
-const profit=i=>num(i.sellPrice)-cost(i);
+const profit=i=>num(i.sellPrice)-cost(i)-giftCost(i);
 const today=()=>{const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)};
 const days=(a,b)=>a&&b?Math.max(0,Math.round((new Date(b+'T00:00')-new Date(a+'T00:00'))/864e5)):0;
 const dmy=s=>s?s.slice(8,10)+'.'+s.slice(5,7)+'.'+s.slice(2,4):'';
@@ -228,45 +226,46 @@ const sub=i=>[i.memory,i.color].filter(Boolean).join(' · ');
 const signCls=n=>n>0?'pos':n<0?'neg':'zero';
 const signed=n=>(n>0?'+':n<0?'−':'')+fmt(Math.abs(n));
 const plural=(n,a,b,c)=>{n=Math.abs(n)%100;const m=n%10;return n>10&&n<20?c:m===1?a:m>=2&&m<=4?b:c};
+const cond=i=>{const c=String(i.condition??'');return c===''?'':/^\d+$/.test(c)?c+'/10':c};
 
-// Model badge: "iPhone 15 Pro Max" → "15PM", colored by generation
 function badge(model){
   const m=String(model||'').replace(/iphone/i,'').trim();
-  let label='?',h=150;
-  const g=m.match(/(\d+)/);
+  let label='?',h=150;const g=m.match(/(\d+)/);
   if(/^se/i.test(m)){label='SE';h=200}
   else if(/^air/i.test(m)){label='Air';h=190}
   else if(g){label=g[1]+(/pro max/i.test(m)?'PM':/pro/i.test(m)?'P':/plus/i.test(m)?'+':/mini/i.test(m)?'m':/\d+e\b/i.test(m)?'e':'');h=(Number(g[1])*47+120)%360}
   else if(m){label=m.slice(0,3)}
   return `<span class="badge" style="--h:${h}">${esc(label)}</span>`;
 }
+const accBadge=()=>`<span class="badge" style="--h:30">⚡︎</span>`;
 
 const $=s=>document.querySelector(s);
 const main=$('#main'), form=$('#form'), overlay=$('#overlay');
 $('#models').innerHTML=MODELS.map(m=>`<option value="${m}">`).join('');
 
 let toastT;
-function toast(msg){let t=$('.toast');if(!t){t=document.createElement('div');t.className='toast';document.body.appendChild(t)}t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2600)}
+function toast(msg){let t=$('.toast');if(!t){t=document.createElement('div');t.className='toast';document.body.appendChild(t)}t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2800)}
 
-function matches(i){if(!query)return true;const q=query.toLowerCase();return [i.model,i.memory,i.color,i.imei,i.note,i.source,i.condition].some(v=>String(v||'').toLowerCase().includes(q))}
+function matches(i){if(!query)return true;const q=query.toLowerCase();return [i.model,i.memory,i.color,i.imei,i.imei2,i.note,i.source,i.buyer,i.kit,i.name,i.cat].some(v=>String(v||'').toLowerCase().includes(q))}
 
+// ---------- render ----------
+const TITLES={stock:['Склад','Телефон'],sold:['Продано','Телефон'],acc:['Аксессуары','Аксессуар'],exp:['Реклама и расходы','Расход'],stats:['Статистика','Телефон']};
 function render(){
-  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
-  $('#title').textContent={stock:'Склад',sold:'Продано',stats:'Статистика'}[tab];
+  document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
+  $('#title').textContent=TITLES[tab][0];$('#addLbl').textContent=TITLES[tab][1];
   $('#eyebrow').textContent=new Date().toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
   $('#search').hidden=tab==='stats';
-  if(tab==='stock')renderStock();else if(tab==='sold')renderSold();else renderStats();
+  ({stock:renderStock,sold:renderSold,acc:renderAcc,exp:renderExp,stats:renderStats})[tab]();
 }
 
 function renderStock(){
   const all=items.filter(i=>!isSold(i));
   const list=all.filter(matches).sort((a,b)=>(b.buyDate||'').localeCompare(a.buyDate||''));
-  const invested=all.reduce((s,i)=>s+cost(i),0);
   const avgAge=all.length?all.reduce((s,i)=>s+days(i.buyDate,today()),0)/all.length:0;
-  let h=`<div class="strip"><div class="mini"><div class="k">На складе</div><div class="v">${all.length} шт</div></div><div class="mini"><div class="k">Вложено</div><div class="v">${fmt(invested)}</div></div></div>`;
+  let h=`<div class="strip"><div class="mini"><div class="k">На складе</div><div class="v">${all.length} шт</div></div><div class="mini"><div class="k">Вложено</div><div class="v">${fmt(all.reduce((s,i)=>s+cost(i),0))}</div></div></div>`;
   if(!list.length)h+=all.length?`<div class="empty">Ничего не найдено</div>`:`<div class="empty"><b>Склад пуст</b>Нажми «Телефон», чтобы добавить купленный айфон.</div>`;
-  else h+='<div class="list">'+list.map(i=>{const d=days(i.buyDate,today());return `<button class="item" data-id="${i.id}">${badge(i.model)}<div class="body"><div class="t">${esc(i.model)}</div><div class="s">${esc(sub(i))}${sub(i)?' · ':''}куплен ${dmy(i.buyDate)}${i.battery?' · АКБ '+esc(i.battery)+'%':''}</div></div><div class="r">${fmt(cost(i))}<div class="age ${d>14?'old':''}">${d} ${plural(d,'день','дня','дней')}</div></div></button>`}).join('')+'</div>';
-  if(all.length)h+=`<div class="note">Средний срок на складе: ${avgAge.toFixed(0)} ${plural(Math.round(avgAge),'день','дня','дней')}. Красным отмечены телефоны, которые лежат дольше двух недель.</div>`;
+  else h+='<div class="list">'+list.map(i=>{const d=days(i.buyDate,today());return `<button type="button" class="item" data-id="${i.id}">${badge(i.model)}<div class="body"><div class="t">${esc(i.model)}${i.tradeFrom?'<span class="tag">из обмена</span>':''}</div><div class="s">${esc(sub(i))}${sub(i)?' · ':''}${dmy(i.buyDate)}${cond(i)?' · '+esc(cond(i)):''}${i.battery?' · АКБ '+esc(i.battery)+'%':''}</div></div><div class="r">${fmt(cost(i))}<div class="age ${d>14?'old':''}">${d} ${plural(d,'день','дня','дней')}</div></div></button>`}).join('')+'</div>';
+  if(all.length)h+=`<div class="note">В среднем телефон лежит ${Math.round(avgAge)} ${plural(Math.round(avgAge),'день','дня','дней')}. Красным отмечены те, что лежат дольше двух недель.</div>`;
   main.innerHTML=h;
 }
 
@@ -274,9 +273,30 @@ function renderSold(){
   const all=items.filter(isSold);
   const list=all.filter(matches).sort((a,b)=>(b.sellDate||'').localeCompare(a.sellDate||''));
   const pr=all.reduce((s,i)=>s+profit(i),0);
-  let h=`<div class="strip"><div class="mini"><div class="k">Продано всего</div><div class="v">${all.length} шт</div></div><div class="mini"><div class="k">Прибыль всего</div><div class="v ${signCls(pr)}">${signed(pr)}</div></div></div>`;
-  if(!list.length)h+=all.length?`<div class="empty">Ничего не найдено</div>`:`<div class="empty"><b>Продаж пока нет</b>Открой телефон на складе и укажи цену продажи.</div>`;
-  else h+='<div class="list">'+list.map(i=>{const p=profit(i);return `<button class="item" data-id="${i.id}">${badge(i.model)}<div class="body"><div class="t">${esc(i.model)}${i.memory?' · '+esc(i.memory):''}</div><div class="s">${short(cost(i))} → ${short(num(i.sellPrice))} · ${dmy(i.sellDate)} · ${days(i.buyDate,i.sellDate)} дн.</div></div><span class="pill ${signCls(p)}">${signed(p)}</span></button>`}).join('')+'</div>';
+  let h=`<div class="strip"><div class="mini"><div class="k">Продано всего</div><div class="v">${all.length} шт</div></div><div class="mini"><div class="k">Прибыль с продаж</div><div class="v ${signCls(pr)}">${signed(pr)}</div></div></div>`;
+  if(!list.length)h+=all.length?`<div class="empty">Ничего не найдено</div>`:`<div class="empty"><b>Продаж пока нет</b>Открой телефон на складе и укажи цену продажи или нажми «Обмен».</div>`;
+  else h+='<div class="list">'+list.map(i=>{const p=profit(i);const pay=i.sellType==='trade'?'обмен':PAY[i.sellPay]||'';return `<button type="button" class="item" data-id="${i.id}">${badge(i.model)}<div class="body"><div class="t">${esc(i.model)}${i.memory?' · '+esc(i.memory):''}${i.sellType==='trade'?'<span class="tag">обмен</span>':''}</div><div class="s">${short(cost(i))} → ${short(num(i.sellPrice))} · ${dmy(i.sellDate)}${pay&&i.sellType!=='trade'?' · '+pay:''}${i.buyer?' · '+esc(i.buyer):''}</div></div><span class="pill ${signCls(p)}">${signed(p)}</span></button>`}).join('')+'</div>';
+  main.innerHTML=h;
+}
+
+function renderAcc(){
+  const list=acc.filter(matches).sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+  const qty=acc.reduce((s,a)=>s+num(a.qty),0), val=acc.reduce((s,a)=>s+num(a.qty)*num(a.unit),0);
+  const given=items.reduce((s,i)=>s+(i.gifts||[]).reduce((t,g)=>t+num(g.qty),0),0);
+  let h=`<div class="strip"><div class="mini"><div class="k">В наличии</div><div class="v">${qty} шт</div></div><div class="mini"><div class="k">Стоимость</div><div class="v">${fmt(val)}</div></div></div>`;
+  if(!list.length)h+=acc.length?`<div class="empty">Ничего не найдено</div>`:`<div class="empty"><b>Аксессуаров нет</b>Добавь шнуры и блоки, чтобы отдавать их в комплекте при продаже. Если блок достался бесплатно, ставь цену 0.</div>`;
+  else h+='<div class="list">'+list.map(a=>`<button type="button" class="item" data-acc="${a.id}">${accBadge()}<div class="body"><div class="t">${esc(a.name)}</div><div class="s">${num(a.unit)?fmt(a.unit)+' за шт':'бесплатно'}${a.date?' · '+dmy(a.date):''}</div></div><div class="r">${num(a.qty)} шт</div></button>`).join('')+'</div>';
+  h+=`<div class="note">Всего отдано в комплекте: ${given} шт. Цена аксессуара из комплекта вычитается из прибыли с телефона.</div>`;
+  main.innerHTML=h;
+}
+
+function renderExp(){
+  const list=exps.filter(matches).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  const mon=exps.filter(e=>inPeriod(e.date,'month')).reduce((s,e)=>s+num(e.amount),0);
+  const ads=exps.filter(e=>inPeriod(e.date,'month')&&/^Реклама/.test(e.cat)).reduce((s,e)=>s+num(e.amount),0);
+  let h=`<div class="strip"><div class="mini"><div class="k">Реклама за месяц</div><div class="v">${fmt(ads)}</div></div><div class="mini"><div class="k">Все расходы за месяц</div><div class="v">${fmt(mon)}</div></div></div>`;
+  if(!list.length)h+=exps.length?`<div class="empty">Ничего не найдено</div>`:`<div class="empty"><b>Расходов пока нет</b>Добавляй оплату рекламы на OLX, в Instagram и другие общие траты. Они вычитаются из прибыли в статистике.</div>`;
+  else h+='<div class="list">'+list.map(e=>`<button type="button" class="item" data-exp="${e.id}"><div class="body"><div class="t">${esc(e.cat||'Расход')}</div><div class="s">${dmy(e.date)}${e.pay?' · '+PAY[e.pay]:''}${e.note?' · '+esc(e.note):''}</div></div><div class="r neg">−${fmt(e.amount)}</div></button>`).join('')+'</div>';
   main.innerHTML=h;
 }
 
@@ -293,113 +313,260 @@ function renderStats(){
   const sold=items.filter(isSold).filter(i=>inPeriod(i.sellDate,period));
   const bought=items.filter(i=>inPeriod(i.buyDate,period));
   const stock=items.filter(i=>!isSold(i));
+  const ex=exps.filter(e=>inPeriod(e.date,period));
+  const exSum=ex.reduce((s,e)=>s+num(e.amount),0);
+  const adSum=ex.filter(e=>/^Реклама/.test(e.cat)).reduce((s,e)=>s+num(e.amount),0);
   const rev=sold.reduce((s,i)=>s+num(i.sellPrice),0);
-  const pr=sold.reduce((s,i)=>s+profit(i),0);
-  const cs=sold.reduce((s,i)=>s+cost(i),0);
-  const avgP=sold.length?pr/sold.length:0;
-  const margin=cs?pr/cs*100:0;
+  const gross=sold.reduce((s,i)=>s+profit(i),0);
+  const net=gross-exSum;
+  const gifts=sold.reduce((s,i)=>s+giftCost(i),0);
+  const cs=sold.reduce((s,i)=>s+cost(i)+giftCost(i),0);
+  const avgP=sold.length?gross/sold.length:0;
+  const margin=cs?gross/cs*100:0;
   const avgD=sold.length?sold.reduce((s,i)=>s+days(i.buyDate,i.sellDate),0)/sold.length:0;
-  const best=sold.slice().sort((a,b)=>profit(b)-profit(a))[0];
+  const trades=sold.filter(i=>i.sellType==='trade').length;
+  // money actually received for sales
+  let inCash=0,inKaspi=0;
+  sold.forEach(i=>{const m=i.sellType==='trade'?num(i.tradeExtra):num(i.sellPrice);if(m>0){if(i.sellPay==='kaspi')inKaspi+=m;else inCash+=m}});
+  const inTot=inCash+inKaspi;
 
-  let h=`<div class="chips">${Object.entries(P).map(([k,v])=>`<button class="chip ${k===period?'on':''}" data-p="${k}">${v}</button>`).join('')}</div>`;
-  h+=`<div class="hero"><div class="k">Прибыль · ${P[period].toLowerCase()}</div><div class="big ${pr<0?'neg':''}">${signed(pr)}</div>
-    <div class="row"><div><span>Выручка</span><b>${short(rev)} ₸</b></div><div><span>Продано</span><b>${sold.length} шт</b></div><div><span>Наценка</span><b>${margin.toFixed(1)}%</b></div></div></div>`;
+  let h=`<div class="chips">${Object.entries(P).map(([k,v])=>`<button type="button" class="chip ${k===period?'on':''}" data-p="${k}">${v}</button>`).join('')}</div>`;
+  h+=`<div class="hero"><div class="k">Чистая прибыль · ${P[period].toLowerCase()}</div><div class="big ${net<0?'neg':''}">${signed(net)}</div>
+    <div class="row"><div><span>С продаж</span><b>${short(gross)} ₸</b></div><div><span>Реклама и расходы</span><b class="${exSum?'neg':''}">${exSum?'−':''}${short(exSum)} ₸</b></div><div><span>Выручка</span><b>${short(rev)} ₸</b></div></div></div>`;
   h+=`<div class="grid">
+    <div class="card"><div class="k">Продано</div><div class="v">${sold.length} шт</div>${trades?`<div class="sub">из них обменов: ${trades}</div>`:''}</div>
     <div class="card"><div class="k">Средняя прибыль</div><div class="v ${avgP<0?'neg':''}">${fmt(avgP)}</div></div>
+    <div class="card"><div class="k">Наценка</div><div class="v">${margin.toFixed(1)}%</div></div>
     <div class="card"><div class="k">Продаётся за</div><div class="v">${avgD.toFixed(1)} дн.</div></div>
+    <div class="card"><div class="k">Реклама</div><div class="v">${fmt(adSum)}</div>${sold.length&&adSum?`<div class="sub">${fmt(adSum/sold.length)} на продажу</div>`:''}</div>
+    <div class="card"><div class="k">Аксессуары в подарок</div><div class="v">${fmt(gifts)}</div></div>
     <div class="card"><div class="k">Куплено</div><div class="v">${bought.length} шт</div></div>
-    <div class="card"><div class="k">На складе</div><div class="v">${stock.length} шт</div></div>
-    ${best?`<div class="card wide"><div class="k">Лучшая сделка</div><div class="v" style="font-size:16px">${esc(best.model)}${best.memory?' · '+esc(best.memory):''} <span class="pos">${signed(profit(best))}</span></div></div>`:''}
+    <div class="card"><div class="k">На складе</div><div class="v">${stock.length} шт</div><div class="sub">${fmt(stock.reduce((s,i)=>s+cost(i),0))}</div></div>
+    <div class="card wide"><div class="k">Получено деньгами за продажи</div><div class="v">${fmt(inTot)}</div>
+      <div class="split"><i class="c" style="width:${inTot?inCash/inTot*100:0}%"></i><i class="q" style="width:${inTot?inKaspi/inTot*100:0}%"></i></div>
+      <div class="legend"><span style="--dot:var(--accent)">Нал ${fmt(inCash)}</span><span style="--dot:var(--info)">Kaspi ${fmt(inKaspi)}</span></div>
+      ${trades?`<div class="sub" style="margin-top:6px">При обмене здесь учтена только доплата деньгами.</div>`:''}</div>
   </div>`;
 
-  // Per-model stats
-  const g={};
-  const key=i=>String(i.model||'Без модели').trim();
+  // per model
+  const g={};const key=i=>String(i.model||'Без модели').trim();
   sold.forEach(i=>{const k=key(i);g[k]=g[k]||{sold:[],stock:0,mem:{}};g[k].sold.push(i);const m=i.memory||'—';g[k].mem[m]=(g[k].mem[m]||0)+1});
   stock.forEach(i=>{const k=key(i);g[k]=g[k]||{sold:[],stock:0,mem:{}};g[k].stock++});
-  const rows=Object.entries(g).map(([k,v])=>{const n=v.sold.length,p=v.sold.reduce((s,i)=>s+profit(i),0),c=v.sold.reduce((s,i)=>s+cost(i),0);
-    return {k,n,p,stock:v.stock,mem:v.mem,avgBuy:n?c/n:0,avgSell:n?v.sold.reduce((s,i)=>s+num(i.sellPrice),0)/n:0,avgP:n?p/n:0,avgD:n?v.sold.reduce((s,i)=>s+days(i.buyDate,i.sellDate),0)/n:0,margin:c?p/c*100:0}});
+  const rows=Object.entries(g).map(([k,v])=>{const n=v.sold.length,p=v.sold.reduce((s,i)=>s+profit(i),0),c=v.sold.reduce((s,i)=>s+cost(i)+giftCost(i),0);
+    return {k,n,p,stock:v.stock,mem:v.mem,avgBuy:n?v.sold.reduce((s,i)=>s+cost(i),0)/n:0,avgSell:n?v.sold.reduce((s,i)=>s+num(i.sellPrice),0)/n:0,avgP:n?p/n:0,avgD:n?v.sold.reduce((s,i)=>s+days(i.buyDate,i.sellDate),0)/n:0,margin:c?p/c*100:0}});
   rows.sort(modelSort==='profit'?(a,b)=>b.p-a.p||b.n-a.n:modelSort==='count'?(a,b)=>b.n-a.n||b.p-a.p:(a,b)=>(a.n?a.avgD:1e9)-(b.n?b.avgD:1e9));
   const maxP=Math.max(1,...rows.map(r=>Math.abs(r.p)));
   h+=`<h2>По моделям <small>${rows.length} ${plural(rows.length,'модель','модели','моделей')}</small></h2>`;
   if(rows.length){
-    h+=`<div class="chips">${[['profit','По прибыли'],['count','По продажам'],['speed','Быстрее продаются']].map(([k,v])=>`<button class="chip ${k===modelSort?'on':''}" data-ms="${k}">${v}</button>`).join('')}</div><div class="models">`;
+    h+=`<div class="chips">${[['profit','По прибыли'],['count','По продажам'],['speed','Быстрее продаются']].map(([k,v])=>`<button type="button" class="chip ${k===modelSort?'on':''}" data-ms="${k}">${v}</button>`).join('')}</div><div class="models">`;
     h+=rows.map(r=>`<div class="model"><div class="model-head">${badge(r.k)}<div class="body"><div class="t">${esc(r.k)}</div><div class="s">продано ${r.n} · на складе ${r.stock}</div></div>${r.n?`<span class="pill ${signCls(r.p)}">${signed(r.p)}</span>`:''}</div>
       ${r.n?`<div class="share"><i class="${r.p<0?'n':''}" style="width:${Math.abs(r.p)/maxP*100}%"></i></div>
-      <div class="mstats"><div><span>Ср. покупка</span><b>${short(r.avgBuy)} ₸</b></div><div><span>Ср. продажа</span><b>${short(r.avgSell)} ₸</b></div><div><span>Ср. прибыль</span><b class="${r.avgP<0?'neg':''}">${short(r.avgP)} ₸</b></div><div><span>Наценка</span><b>${r.margin.toFixed(1)}%</b></div><div><span>Срок продажи</span><b>${r.avgD.toFixed(0)} дн.</b></div><div><span>Продано</span><b>${r.n} шт</b></div></div>
+      <div class="mstats"><div><span>Ср. закупка</span><b>${short(r.avgBuy)} ₸</b></div><div><span>Ср. продажа</span><b>${short(r.avgSell)} ₸</b></div><div><span>Ср. прибыль</span><b class="${r.avgP<0?'neg':''}">${short(r.avgP)} ₸</b></div><div><span>Наценка</span><b>${r.margin.toFixed(1)}%</b></div><div><span>Срок продажи</span><b>${r.avgD.toFixed(0)} дн.</b></div><div><span>Продано</span><b>${r.n} шт</b></div></div>
       <div class="mem">${Object.entries(r.mem).map(([m,c])=>`<span>${esc(m)} <b>×${c}</b></span>`).join('')}</div>`:`<div class="s" style="margin-top:10px">За этот период продаж не было</div>`}</div>`).join('')+'</div>';
   } else h+=`<div class="empty">Добавь телефоны, и здесь появится разбивка по моделям.</div>`;
 
-  // last 12 months
+  // monthly net profit
   const n=new Date(),months=[];
   for(let k=11;k>=0;k--){const d=new Date(n.getFullYear(),n.getMonth()-k,1);const mk=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
-    months.push({cur:k===0,lbl:d.toLocaleString('ru-RU',{month:'short'}).replace('.','').slice(0,3),v:items.filter(i=>isSold(i)&&i.sellDate.slice(0,7)===mk).reduce((s,i)=>s+profit(i),0)})}
+    const v=items.filter(i=>isSold(i)&&i.sellDate.slice(0,7)===mk).reduce((s,i)=>s+profit(i),0)-exps.filter(e=>String(e.date).slice(0,7)===mk).reduce((s,e)=>s+num(e.amount),0);
+    months.push({cur:k===0,lbl:d.toLocaleString('ru-RU',{month:'short'}).replace('.','').slice(0,3),v})}
   const mx=Math.max(1,...months.map(m=>Math.abs(m.v)));
-  h+=`<h2>Прибыль по месяцам <small>12 мес.</small></h2><div class="card"><div class="bars">${months.map(m=>`<div class="bar ${m.cur?'cur':''}"><em>${m.v?short(m.v):''}</em><i class="${m.v<0?'n':''}" style="height:calc(${Math.abs(m.v)/mx} * (100% - 40px))"></i><small>${m.lbl}</small></div>`).join('')}</div></div>`;
+  h+=`<h2>Чистая прибыль по месяцам <small>12 мес.</small></h2><div class="card"><div class="bars">${months.map(m=>`<div class="bar ${m.cur?'cur':''}"><em>${m.v?short(m.v):''}</em><i class="${m.v<0?'n':''}" style="height:calc(${Math.abs(m.v)/mx} * (100% - 40px))"></i><small>${m.lbl}</small></div>`).join('')}</div></div>`;
 
   h+=`<h2>Данные</h2><div class="btns">
-    <button class="btn" id="expJson">Сохранить резервную копию</button>
-    <button class="btn" id="impJson">Загрузить из копии</button>
-    <button class="btn" id="expCsv">Выгрузить таблицу (CSV)</button>
+    <button type="button" class="btn" id="expJson">Сохранить резервную копию</button>
+    <button type="button" class="btn" id="impJson">Загрузить из копии</button>
+    <button type="button" class="btn" id="expCsv">Выгрузить таблицу продаж (CSV)</button>
   </div>
-  <div class="note">Все данные хранятся только на этом телефоне. Время от времени сохраняй резервную копию в Файлы или Telegram.</div>`;
+  <div class="note">Данные хранятся только на этом телефоне. Время от времени сохраняй резервную копию в Файлы или Telegram.</div>`;
   main.innerHTML=h;
 }
 
-// ---- form ----
-function setDel(armed){delArmed=armed;const b=$('#del');b.classList.toggle('armed',armed);b.textContent=armed?'Нажми ещё раз, чтобы удалить':'Удалить запись'}
-function openForm(id){
-  editId=id||null;form.reset();setDel(false);
+// ---------- sheets ----------
+const fld=(label,name,attrs='')=>`<label class="f"><span>${label}</span><input id="f-${name}" name="${name}" ${attrs}></label>`;
+const sel=(label,name,opts)=>`<label class="f"><span>${label}</span><select id="f-${name}" name="${name}">${opts.map(o=>Array.isArray(o)?`<option value="${o[0]}">${o[1]}</option>`:`<option>${o}</option>`).join('')}</select></label>`;
+const payRow=(label,name)=>`<label class="f"><span>${label}</span><span class="seg" data-seg="${name}"><button type="button" data-v="cash">Нал</button><button type="button" data-v="kaspi">Kaspi</button></span><input type="hidden" id="f-${name}" name="${name}"></label>`;
+const group=(lbl,inner)=>`<div class="group"><div class="lbl">${lbl}</div><div class="fields">${inner}</div></div>`;
+const NUM='type="number" inputmode="numeric"';
+const condOpts=[['',''],...Array.from({length:10},(_,i)=>[String(10-i),String(10-i)+' из 10'])];
+
+function openSheet(title,html,opts={}){
+  sheet=opts;
+  form.innerHTML=`<div class="grab"></div><div class="sheet-head"><button type="button" class="link" id="cancel">Отмена</button><h3>${esc(title)}</h3><button type="submit" class="link strong">Готово</button></div>${html}`;
+  overlay.hidden=false;document.body.style.overflow='hidden';form.scrollTop=0;
+}
+function closeSheet(){overlay.hidden=true;document.body.style.overflow='';sheet=null;form.innerHTML=''}
+function setVals(o){for(const el of form.elements){if(el.name&&o[el.name]!=null)el.value=o[el.name]}syncSegs()}
+function getVals(){const d={};for(const el of form.elements)if(el.name)d[el.name]=el.value.trim();return d}
+function syncSegs(){form.querySelectorAll('.seg').forEach(s=>{const v=form.elements[s.dataset.seg].value;s.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v===v))})}
+function armDelete(btn,fn){if(btn.dataset.armed){fn();return}btn.dataset.armed='1';btn.classList.add('armed');btn.textContent='Нажми ещё раз, чтобы удалить'}
+
+// gift picker state
+let giftSel={};
+function giftsHtml(){
+  const avail=acc.filter(a=>num(a.qty)>0||giftSel[a.id]);
+  if(!avail.length)return `<div class="gift"><div class="body"><div class="s">Аксессуаров на складе нет. Добавь их во вкладке «Аксессуары».</div></div></div>`;
+  return avail.map(a=>{const q=giftSel[a.id]||0;return `<div class="gift"><div class="body"><div class="t">${esc(a.name)}</div><div class="s">${num(a.unit)?fmt(a.unit):'бесплатно'} · осталось ${num(a.qty)}</div></div><div class="stepper"><button type="button" data-gift="${a.id}" data-d="-1" aria-label="Меньше">−</button><b>${q}</b><button type="button" data-gift="${a.id}" data-d="1" aria-label="Больше">+</button></div></div>`}).join('');
+}
+
+function phoneForm(id){
   const i=items.find(x=>x.id===id);
-  $('#formTitle').textContent=i?'Изменить':'Новый телефон';
-  $('#del').hidden=!i;
-  if(i){for(const el of form.elements)if(el.name&&i[el.name]!=null)el.value=i[el.name]}
-  else form.buyDate.value=today();
-  updatePreview();overlay.hidden=false;document.body.style.overflow='hidden';
+  giftSel={};(i?.gifts||[]).forEach(g=>giftSel[g.accId]=(giftSel[g.accId]||0)+num(g.qty));
+  const tradeInfo=i?.sellType==='trade'?`<div class="info">Отдан в обмен: зачли ${fmt(i.tradeVal)}, доплата ${signed(num(i.tradeExtra))}. Цена продажи = зачёт + доплата.</div>`:'';
+  const fromInfo=i?.tradeFrom?`<div class="info">Получен в обмен. Цена покупки — сколько за него зачли.</div>`:'';
+  const html=fromInfo+
+    group('Телефон',fld('Модель','model',`list="models" placeholder="iPhone 15 Pro"`)+sel('Память','memory',['','64 ГБ','128 ГБ','256 ГБ','512 ГБ','1 ТБ'])+fld('Цвет','color','placeholder="—"')+sel('Состояние','condition',condOpts)+fld('Батарея, %','battery',NUM+' placeholder="—"')+fld('IMEI 1','imei','inputmode="numeric" placeholder="—"')+fld('IMEI 2','imei2','inputmode="numeric" placeholder="—"'))+
+    group('Покупка',fld('Дата','buyDate','type="date"')+fld('Цена, ₸','buyPrice',NUM+' placeholder="0"')+(i?.tradeFrom?'':payRow('Оплата','buyPay'))+fld('Расходы, ₸','costs',NUM+' placeholder="ремонт, доставка"')+fld('Где купил','source','placeholder="OLX, знакомый…"'))+
+    tradeInfo+
+    group('Продажа',fld('Дата','sellDate','type="date"')+fld('Цена, ₸','sellPrice',NUM+` placeholder="ещё не продан" ${i?.sellType==='trade'?'readonly':''}`)+(i?.sellType==='trade'?'':payRow('Оплата','sellPay'))+fld('Кому продал','buyer','placeholder="имя, телефон"')+fld('Комплект','kit','placeholder="коробка, чек…"'))+
+    `<div class="group"><div class="lbl">Аксессуары в подарок</div><div class="fields" id="gifts">${giftsHtml()}</div></div>`+
+    `<div class="preview" id="preview" hidden></div>`+
+    `<div class="group"><div class="lbl">Заметка</div><div class="fields"><textarea id="f-note" name="note" placeholder="Дефекты, детали сделки…"></textarea></div></div>`+
+    `<div class="btns">${i&&!isSold(i)?'<button type="button" class="btn info" id="tradeBtn">Обменять на другой телефон</button>':''}${i?'<button type="button" class="btn danger" id="delBtn">Удалить запись</button>':''}</div>`;
+  openSheet(i?'Изменить':'Новый телефон',html,{kind:'phone',id});
+  if(i&&i.condition&&!/^\d+$/.test(i.condition)){const o=document.createElement('option');o.textContent=i.condition;form.elements.condition.appendChild(o)}
+  setVals(i||{buyDate:today(),buyPay:'cash',sellPay:'cash'});
+  if(i&&!i.buyPay&&form.elements.buyPay)form.elements.buyPay.value='cash';
+  if(i&&!i.sellPay&&form.elements.sellPay)form.elements.sellPay.value='cash';
+  syncSegs();updatePreview();
 }
-function closeForm(){overlay.hidden=true;document.body.style.overflow='';editId=null}
+
 function updatePreview(){
-  const sp=form.sellPrice.value,pv=$('#preview');
+  const pv=$('#preview');if(!pv||!sheet||sheet.kind!=='phone')return;
+  const sp=form.elements.sellPrice.value;
   if(sp===''){pv.hidden=true;return}
-  const p=num(sp)-num(form.buyPrice.value)-num(form.costs.value);
+  const gc=Object.entries(giftSel).reduce((s,[id,q])=>{const a=acc.find(x=>x.id===id);return s+(a?num(a.unit)*q:0)},0);
+  const p=num(sp)-num(form.elements.buyPrice.value)-num(form.elements.costs.value)-gc;
   pv.hidden=false;pv.className='preview'+(p<0?' neg':'');
-  pv.innerHTML=`<span>Прибыль с продажи</span><span>${signed(p)}</span>`;
+  pv.innerHTML=`<span>Прибыль с продажи${gc?`<small>с учётом аксессуаров на ${fmt(gc)}</small>`:''}</span><span>${signed(p)}</span>`;
 }
-form.addEventListener('input',e=>{if(['sellPrice','buyPrice','costs'].includes(e.target.name))updatePreview()});
-form.sellPrice.addEventListener('change',()=>{if(form.sellPrice.value!==''&&!form.sellDate.value)form.sellDate.value=today()});
-form.addEventListener('submit',e=>{
-  e.preventDefault();
-  const d={};for(const el of form.elements)if(el.name)d[el.name]=el.value.trim();
-  if(!d.model){toast('Укажи модель');form.model.focus();return}
-  if(d.buyPrice===''){toast('Укажи цену покупки');form.buyPrice.focus();return}
+
+function savePhone(){
+  const d=getVals(), id=sheet.id, old=items.find(x=>x.id===id);
+  if(!d.model){toast('Укажи модель');return}
+  if(d.buyPrice===''){toast('Укажи цену покупки');return}
   if(!d.buyDate)d.buyDate=today();
   if(d.sellPrice!==''&&!d.sellDate)d.sellDate=today();
   if(d.sellDate&&d.sellPrice===''){toast('Укажи цену продажи или очисти дату продажи');return}
-  const wasSold=editId&&isSold(items.find(x=>x.id===editId)||{});
-  if(editId){const i=items.findIndex(x=>x.id===editId);items[i]={...items[i],...d}}
-  else items.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),...d});
-  save();closeForm();render();
-  toast(isSold(d)&&!wasSold?`Продано, прибыль ${signed(profit(d))}`:'Сохранено');
-});
-$('#del').onclick=()=>{if(!editId)return;if(!delArmed)return setDel(true);items=items.filter(x=>x.id!==editId);save();closeForm();render();toast('Запись удалена')};
-$('#cancel').onclick=closeForm;
-overlay.addEventListener('click',e=>{if(e.target===overlay)closeForm()});
-$('#addBtn').onclick=()=>openForm();
+  // accessories: return old gifts to stock, take new ones
+  const back={};(old?.gifts||[]).forEach(g=>back[g.accId]=(back[g.accId]||0)+num(g.qty));
+  for(const [aid,q] of Object.entries(giftSel)){const a=acc.find(x=>x.id===aid);if(a&&num(a.qty)+(back[aid]||0)<q){toast(`Не хватает: ${a.name}`);return}}
+  for(const [aid,q] of Object.entries(back)){const a=acc.find(x=>x.id===aid);if(a)a.qty=num(a.qty)+q}
+  d.gifts=Object.entries(giftSel).filter(([,q])=>q>0).map(([aid,q])=>{const a=acc.find(x=>x.id===aid);a.qty=num(a.qty)-q;return {accId:aid,name:a.name,qty:q,unit:num(a.unit)}});
+  if(d.sellDate===''&&d.sellPrice==='')d.gifts.length&&toast('Аксессуары списаны, хотя телефон ещё не продан');
+  const wasSold=old&&isSold(old);
+  if(old)Object.assign(old,d);else items.push({id:uid(),...d});
+  saveAll();closeSheet();render();
+  const now=old||items[items.length-1];
+  toast(isSold(now)&&!wasSold?`Продано, прибыль ${signed(profit(now))}`:'Сохранено');
+}
 
-// ---- navigation & clicks ----
-document.querySelector('nav').addEventListener('click',e=>{const b=e.target.closest('button');if(b){tab=b.dataset.tab;window.scrollTo(0,0);render()}});
+function tradeForm(id){
+  const g=items.find(x=>x.id===id);
+  const html=`<div class="info">Отдаёшь <b>${esc(g.model)}${g.memory?' · '+esc(g.memory):''}</b> (закуп ${fmt(cost(g))}). Он уйдёт в «Продано», а полученный телефон встанет на склад.</div>`+
+    group('Сделка',fld('Дата','date','type="date"')+fld('Кому','buyer','placeholder="имя, телефон"'))+
+    group('Получаю телефон',fld('Модель','model',`list="models" placeholder="iPhone 13"`)+sel('Память','memory',['','64 ГБ','128 ГБ','256 ГБ','512 ГБ','1 ТБ'])+fld('Цвет','color','placeholder="—"')+sel('Состояние','condition',condOpts)+fld('Батарея, %','battery',NUM+' placeholder="—"')+fld('IMEI 1','imei','inputmode="numeric" placeholder="—"')+fld('IMEI 2','imei2','inputmode="numeric" placeholder="—"')+fld('Зачли за него, ₸','val',NUM+' placeholder="0"'))+
+    group('Доплата',`<label class="f"><span>Кто доплатил</span><span class="seg" data-seg="dir"><button type="button" data-v="in">Мне</button><button type="button" data-v="out">Я</button><button type="button" data-v="none">Без</button></span><input type="hidden" id="f-dir" name="dir"></label>`+fld('Сумма, ₸','extra',NUM+' placeholder="0"')+payRow('Оплата','pay'))+
+    `<div class="preview" id="tpreview" hidden></div>`;
+  openSheet('Обмен',html,{kind:'trade',id});
+  setVals({date:today(),dir:'in',pay:'cash'});updateTrade();
+}
+function tradeExtra(d){return d.dir==='none'?0:d.dir==='out'?-num(d.extra):num(d.extra)}
+function updateTrade(){
+  const pv=$('#tpreview');if(!pv)return;const d=getVals();const g=items.find(x=>x.id===sheet.id);
+  const sale=num(d.val)+tradeExtra(d), p=sale-cost(g)-giftCost(g);
+  pv.hidden=false;pv.className='preview'+(p<0?' neg':'');
+  pv.innerHTML=`<span>Прибыль с отданного<small>продан за ${fmt(sale)} = зачёт ${fmt(d.val)} ${tradeExtra(d)<0?'−':'+'} ${fmt(Math.abs(tradeExtra(d)))}</small></span><span>${signed(p)}</span>`;
+}
+function saveTrade(){
+  const d=getVals(), g=items.find(x=>x.id===sheet.id);
+  if(!d.model){toast('Укажи модель полученного телефона');return}
+  if(d.val===''){toast('Укажи, за сколько зачли полученный телефон');return}
+  const date=d.date||today(), ex=tradeExtra(d), nid=uid();
+  Object.assign(g,{sellDate:date,sellPrice:String(num(d.val)+ex),sellType:'trade',sellPay:d.pay,tradeVal:num(d.val),tradeExtra:ex,tradeFor:nid,buyer:d.buyer});
+  items.push({id:nid,model:d.model,memory:d.memory,color:d.color,condition:d.condition,battery:d.battery,imei:d.imei,imei2:d.imei2,buyDate:date,buyPrice:String(num(d.val)),buyPay:'trade',source:'Обмен на '+g.model,tradeFrom:g.id,sellDate:'',sellPrice:'',note:''});
+  saveAll();closeSheet();render();toast(`Обмен сохранён, прибыль ${signed(profit(g))}`);
+}
+
+function accForm(id){
+  const a=acc.find(x=>x.id===id);
+  const html=group('Аксессуар',fld('Название','name','list="accNames" placeholder="Кабель USB-C"')+fld('Количество','qty',NUM+' placeholder="1"')+fld('Цена за шт, ₸','unit',NUM+' placeholder="0 — бесплатно"')+fld('Дата','date','type="date"'))+
+    `<div class="note">Если аксессуар достался бесплатно, ставь цену 0: тогда подарок не уменьшает прибыль.</div>`+
+    `<div class="group"><div class="lbl">Заметка</div><div class="fields"><textarea id="f-note" name="note" placeholder="Где купил, оригинал или нет…"></textarea></div></div>`+
+    (a?'<div class="btns"><button type="button" class="btn danger" id="delBtn">Удалить</button></div>':'');
+  openSheet(a?'Аксессуар':'Новый аксессуар',html,{kind:'acc',id});
+  setVals(a||{date:today(),qty:'1'});
+}
+function saveAcc(){
+  const d=getVals();if(!d.name){toast('Укажи название');return}
+  d.qty=String(num(d.qty));d.unit=String(num(d.unit));
+  const a=acc.find(x=>x.id===sheet.id);
+  if(a)Object.assign(a,d);else{const same=acc.find(x=>x.name.toLowerCase()===d.name.toLowerCase()&&num(x.unit)===num(d.unit));if(same)same.qty=String(num(same.qty)+num(d.qty));else acc.push({id:uid(),...d})}
+  saveAll();closeSheet();render();toast('Сохранено');
+}
+
+function expForm(id){
+  const e=exps.find(x=>x.id===id);
+  const html=group('Расход',sel('Категория','cat',EXP_CATS)+fld('Сумма, ₸','amount',NUM+' placeholder="0"')+fld('Дата','date','type="date"')+payRow('Оплата','pay'))+
+    `<div class="group"><div class="lbl">Заметка</div><div class="fields"><textarea id="f-note" name="note" placeholder="Например: поднятие объявления iPhone 13"></textarea></div></div>`+
+    (e?'<div class="btns"><button type="button" class="btn danger" id="delBtn">Удалить</button></div>':'');
+  openSheet(e?'Расход':'Новый расход',html,{kind:'exp',id});
+  setVals(e||{date:today(),cat:EXP_CATS[0],pay:'kaspi'});
+}
+function saveExp(){
+  const d=getVals();if(!num(d.amount)){toast('Укажи сумму');return}
+  if(!d.date)d.date=today();
+  const e=exps.find(x=>x.id===sheet.id);
+  if(e)Object.assign(e,d);else exps.push({id:uid(),...d});
+  saveAll();closeSheet();render();toast('Сохранено');
+}
+
+function deleteCurrent(){
+  const {kind,id}=sheet;
+  if(kind==='phone'){
+    const i=items.find(x=>x.id===id);
+    (i.gifts||[]).forEach(g=>{const a=acc.find(x=>x.id===g.accId);if(a)a.qty=num(a.qty)+num(g.qty)});
+    if(i.tradeFrom){const g=items.find(x=>x.id===i.tradeFrom);if(g)g.tradeFor=''}
+    if(i.tradeFor){const r=items.find(x=>x.id===i.tradeFor);if(r)r.tradeFrom=''}
+    items=items.filter(x=>x.id!==id);
+  }
+  if(kind==='acc')acc=acc.filter(x=>x.id!==id);
+  if(kind==='exp')exps=exps.filter(x=>x.id!==id);
+  saveAll();closeSheet();render();toast('Удалено');
+}
+
+form.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(b.id==='cancel')return closeSheet();
+  if(b.id==='delBtn')return armDelete(b,deleteCurrent);
+  if(b.id==='tradeBtn'){const id=sheet.id;return tradeForm(id)}
+  const seg=b.closest('.seg');if(seg){form.elements[seg.dataset.seg].value=b.dataset.v;syncSegs();if(sheet.kind==='trade')updateTrade();return}
+  if(b.dataset.gift){const id=b.dataset.gift,a=acc.find(x=>x.id===id);const back=(items.find(x=>x.id===sheet.id)?.gifts||[]).filter(g=>g.accId===id).reduce((s,g)=>s+num(g.qty),0);
+    const max=num(a.qty)+back;giftSel[id]=Math.max(0,Math.min(max,(giftSel[id]||0)+Number(b.dataset.d)));
+    if((giftSel[id]||0)>=max&&b.dataset.d==='1')toast('Больше нет на складе');
+    $('#gifts').innerHTML=giftsHtml();updatePreview()}
+});
+form.addEventListener('input',()=>{if(!sheet)return;if(sheet.kind==='phone')updatePreview();if(sheet.kind==='trade')updateTrade()});
+form.addEventListener('change',e=>{if(sheet?.kind==='phone'&&e.target.name==='sellPrice'&&e.target.value!==''&&!form.elements.sellDate.value)form.elements.sellDate.value=today()});
+form.addEventListener('submit',e=>{e.preventDefault();if(!sheet)return;({phone:savePhone,trade:saveTrade,acc:saveAcc,exp:saveExp})[sheet.kind]()});
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeSheet()});
+$('#addBtn').onclick=()=>tab==='acc'?accForm():tab==='exp'?expForm():phoneForm();
+
+document.querySelector('#nav').addEventListener('click',e=>{const b=e.target.closest('button');if(b){tab=b.dataset.tab;window.scrollTo(0,0);render()}});
 $('#search').addEventListener('input',e=>{query=e.target.value.trim();render()});
 main.addEventListener('click',e=>{
-  const it=e.target.closest('.item[data-id]');if(it)return openForm(it.dataset.id);
+  const it=e.target.closest('.item');
+  if(it?.dataset.id)return phoneForm(it.dataset.id);
+  if(it?.dataset.acc)return accForm(it.dataset.acc);
+  if(it?.dataset.exp)return expForm(it.dataset.exp);
   const c=e.target.closest('.chip');
-  if(c&&c.dataset.p){period=c.dataset.p;return render()}
-  if(c&&c.dataset.ms){modelSort=c.dataset.ms;return render()}
-  if(e.target.id==='expJson')return shareFile(`perepr-backup-${today()}.json`,JSON.stringify(items,null,1),'application/json');
+  if(c?.dataset.p){period=c.dataset.p;return render()}
+  if(c?.dataset.ms){modelSort=c.dataset.ms;return render()}
+  if(e.target.id==='expJson')return shareFile(`perepr-backup-${today()}.json`,JSON.stringify({app:'resale',version:2,items,acc,exps},null,1),'application/json');
   if(e.target.id==='expCsv')return exportCsv();
   if(e.target.id==='impJson')return $('#importFile').click();
 });
 
-// ---- import / export ----
 async function shareFile(fname,content,type){
   const file=new File([content],fname,{type});
   if(navigator.canShare&&navigator.canShare({files:[file]})){
@@ -409,28 +576,29 @@ async function shareFile(fname,content,type){
   toast('Если файл не сохранился, открой приложение с экрана «Домой»');
 }
 function exportCsv(){
-  const cols=[['model','Модель'],['memory','Память'],['color','Цвет'],['condition','Состояние'],['battery','Батарея %'],['imei','IMEI'],['buyDate','Дата покупки'],['buyPrice','Цена покупки'],['costs','Расходы'],['source','Где купил'],['sellDate','Дата продажи'],['sellPrice','Цена продажи'],['profit','Прибыль'],['days','Дней до продажи'],['note','Заметка']];
+  const cols=[['model','Модель'],['memory','Память'],['color','Цвет'],['condition','Состояние'],['battery','Батарея %'],['imei','IMEI 1'],['imei2','IMEI 2'],['buyDate','Дата покупки'],['buyPrice','Цена покупки'],['buyPay','Оплата покупки'],['costs','Расходы'],['source','Где купил'],['sellDate','Дата продажи'],['sellPrice','Цена продажи'],['sellPay','Оплата продажи'],['type','Тип'],['buyer','Кому продал'],['kit','Комплект'],['gifts','Аксессуары'],['giftCost','Стоимость аксессуаров'],['profit','Прибыль'],['days','Дней до продажи'],['note','Заметка']];
   const q=v=>{v=String(v??'');return /[;"\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
-  const rows=items.map(i=>cols.map(([k])=>q(k==='profit'?(isSold(i)?profit(i):''):k==='days'?(isSold(i)?days(i.buyDate,i.sellDate):''):i[k])).join(';'));
+  const val=(i,k)=>k==='profit'?(isSold(i)?profit(i):''):k==='days'?(isSold(i)?days(i.buyDate,i.sellDate):''):k==='buyPay'||k==='sellPay'?(PAY[i[k]]||''):k==='type'?(i.sellType==='trade'?'Обмен':isSold(i)?'Продажа':''):k==='gifts'?(i.gifts||[]).map(g=>g.name+' ×'+g.qty).join(', '):k==='giftCost'?(giftCost(i)||''):i[k];
+  const rows=items.map(i=>cols.map(([k])=>q(val(i,k))).join(';'));
   shareFile(`perepr-${today()}.csv`,'﻿'+[cols.map(c=>c[1]).join(';'),...rows].join('\n'),'text/csv');
 }
 $('#importFile').addEventListener('change',async e=>{
   const f=e.target.files[0];e.target.value='';if(!f)return;
   try{
     const data=JSON.parse(await f.text());
-    if(!Array.isArray(data))throw new Error('неверный формат');
-    const map=new Map(items.map(i=>[i.id,i]));let added=0;
-    data.forEach(i=>{if(i&&i.id&&i.model){if(!map.has(i.id))added++;map.set(i.id,i)}});
-    items=[...map.values()];save();render();
-    toast(`Загружено. Новых записей: ${added}, всего: ${items.length}`);
+    const src=Array.isArray(data)?{items:data,acc:[],exps:[]}:data;
+    if(!src||!Array.isArray(src.items))throw new Error('неверный формат');
+    const merge=(cur,inc,ok)=>{const m=new Map(cur.map(x=>[x.id,x]));let added=0;(inc||[]).forEach(x=>{if(x&&x.id&&ok(x)){if(!m.has(x.id))added++;m.set(x.id,x)}});return [[...m.values()],added]};
+    let a1,a2,a3;[items,a1]=merge(items,src.items,x=>x.model);[acc,a2]=merge(acc,src.acc,x=>x.name);[exps,a3]=merge(exps,src.exps,x=>x.amount!=null);
+    saveAll();render();toast(`Загружено новых: телефонов ${a1}, аксессуаров ${a2}, расходов ${a3}`);
   }catch(err){toast('Не удалось загрузить файл: '+err.message)}
 });
 
-// ---- offline ----
-if('serviceWorker' in navigator&&location.protocol==='https:'&&!/claude\.ai|claudeusercontent/.test(location.host))navigator.serviceWorker.register('sw.js').catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol==='https:'&&/github\.io$/.test(location.host))navigator.serviceWorker.register('sw.js').catch(()=>{});
 try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
 
 render();
+}
 </script>
 </body>
 </html>
